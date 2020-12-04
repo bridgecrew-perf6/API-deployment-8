@@ -1,5 +1,8 @@
 # Create predict() function that will take your preprocessed data as an input and return a price as output.
 from cleaning_data import preprocess
+import pickle
+
+model = pickle.load(open('app/model/model.pkl', 'rb'))
 
 
 def predict(json_input):
@@ -9,13 +12,17 @@ def predict(json_input):
         json_output = {
             "prediction": None,
             "error": message,
-            "other message": None  # mandatory features are ....
+            "other message": None  
         }
+        
         return json_output
+    
     else:
         json_output = {
-            "prediction": model(cleaned_input),
+            "prediction": model.predict(cleaned_input),
             "error": None,
             "other message": message
         }
         return json_output
+
+
