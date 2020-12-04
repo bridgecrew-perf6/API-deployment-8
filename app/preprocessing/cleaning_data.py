@@ -110,3 +110,6 @@ sample_json_input = {
 # error, message1, json = preprocess(sample_json_input)
 # print("---------------------")
 # print(error, "\n", message1, "\n", json)
+
+if __name__ == '__main__':
+    preprocess(json_input)

@@ -1,14 +1,9 @@
 from flask import Flask, request, jsonify, make_response
 import json
-# import predict
-# import preprocess
-
-#import sys                  # 1. line
-#sys.path.insert(1, '/app')
-
-import sys                                  # 1. line
-sys.path.insert(1, '/app')                  # 2. line
-from prediction import predict              # 3. line
+import sys
+sys.path.insert(1, '/app')
+from preprocessing.cleaning_data import preprocess
+from predict.prediction import predict
 
 
 app = Flask(__name__)
@@ -26,16 +21,18 @@ def predict():
         if request.is_json:
             json_input = request.get_json(force=True)
             json_input_cleaned = preprocess(json_input)
-            prediction, error = predict(json_input_cleaned)
+            prediction, error = predict(json_input_cleaned) # ADD ACCURACY
 
             if error:
                 response = {
                     #"prediction": f"{prediction}"
+                    # accuracy_based_on_ADD ACCURACY
                     "error": f"{error}"
                 }
             else:
                 response = {
                     "prediction": f"{prediction}"
+                    # ADD ACCURACY
                     # "error": # ?
                 }
 
