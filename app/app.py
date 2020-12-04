@@ -6,6 +6,11 @@ import json
 #import sys                  # 1. line
 #sys.path.insert(1, '/app')
 
+import sys                                  # 1. line
+sys.path.insert(1, '/app')                  # 2. line
+from prediction import predict              # 3. line
+
+
 app = Flask(__name__)
 
 
