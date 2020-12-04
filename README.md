@@ -7,7 +7,7 @@ This API has been built by [Orhan Nurkan](https://github.com/orhannurkan), [Naom
 
 ## How does NAME_OF_THE_API work?
 
-NAME_OF_THE_API gets data on JSON format. After having assessed the appropriateness of the input ([see input requirements section below](#input-requirements)), data is first [preprocessed](https://github.com/orhannurkan/API-deployment/blob/main/app/preprocessing/cleaning_data.py) according to the model requirements. The prediction is then made based on a [machine learning model](https://github.com/orhannurkan/API-deployment/blob/main/app/model/model.py) that has been [previously trained](https://github.com/orhannurkan/API-deployment/blob/Naomi/app/model/def_dataset.csv) upon/with NUMBER_OF_PROPERTIES properties for sale across Belgium.
+NAME_OF_THE_API gets data on JSON format. After having assessed the appropriateness of the input ([see "Input requirements" section below](#input-requirements)), data is first [preprocessed](https://github.com/orhannurkan/API-deployment/blob/main/app/preprocessing/cleaning_data.py) according to the model requirements. The prediction is then made based on a [machine learning model](https://github.com/orhannurkan/API-deployment/blob/main/app/model/model.py) that has been [previously trained](https://github.com/orhannurkan/API-deployment/blob/Naomi/app/model/def_dataset.csv) upon/with NUMBER_OF_PROPERTIES properties for sale across Belgium.
 
 ## Instructions
 
