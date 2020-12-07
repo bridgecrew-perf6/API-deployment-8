@@ -40,7 +40,6 @@ The required input from the user is either mandatory or optional. The mandatory 
 The steps of preprocessing the data include:
 Normalizing the category names to match the feature names of the training dataset.
 Ensuring all features have a value in the correct data types.
-The required input from the user is either mandatory or optional. The mandatory fields must have the required inputs in the stipumated formats.
 
 <a name="pred"></a>
 ### 2.3. Fitting the Data
