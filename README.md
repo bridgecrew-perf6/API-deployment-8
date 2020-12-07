@@ -1,4 +1,5 @@
 # API-deployment
+# API-deployment
 
 # 1. The Project
 Following a succesful Data Scraping project of Real Estate websites of Belgium, Data Cleaning and Visualization project to clean, study and understand the data, and Machine Learning Project to apply Regression models to predict house prices, the team was challenged to create an API through which data can be received and predicted home prices can be outputted.
@@ -11,12 +12,15 @@ This project was a collaborative effort between four members of the *Bouwman2* p
 
 
 # 2. Contents
-
 For quick reference, the repository is divided into the relevant sections, each with it's own resources and outline.
+-[The model](#model)
+-[Preprocessing](#prep)
+-[Predict](#pred)
+-[The API](#api)
+-[Docker](#doc)
 
-
+<a name="model"></a>
 ## 2.1. The model
-
 |__Problem__|__Data__|__Methods__|__Libs__|__Link__|
 |-|-|-|-|-|
 |Machine Learning model|House attribute data|Regression|`pandas`, `numpy`, `sklearn`, `seaborn`, `matplotlib`, `pickle`| |
@@ -28,8 +32,8 @@ The dataset used the sklearn's OneHotEncoder to convert categorial columns to a 
 The selected prediction model is the `GradientBoosting` ensemble regression model built using sklearn packages.
 Using pickle, the model is packaged to be able to be used externally.
 
+<a name="prep"></a>
 ### Preprocessing
-
 |__Problem__|__Data__|__Methods__|__Libs__|__Link__|
 |-|-|-|-|-|
 |Data preprocessing |json input| |`pandas`, `numpy`,| |
@@ -41,13 +45,12 @@ Normalizing the category names to match the feature names of the training datase
 Ensuring all features have a value in the correct data types.
 The required input from the user is either mandatory or optional. The mandatory fields must have the required inputs in the stipumated formats.
 
-
-### Predict.py
-
+<a name="pred"></a>
+### Fitting the Data
 |__Problem__|__Data__|__Methods__|__Libs__|__Link__|
 |-|-|-|-|-|
 |`Prediction`|json from API|`predict`|`pickle`||
 
 The prediction file takes input data from the user, sends it through the required preprocessing steps and passes this data to the model.
-
 The input data is in json format, and returns a json output, consisting of the house price prediction, and either an error message, or a success message.
+
