@@ -29,9 +29,6 @@ The model used was selected out of several models based on it's accuracy score. 
 
 The dataset used the sklearn's OneHotEncoder to convert categorial columns to a format which would be useful for a machin learning model.
 
-The selected prediction model is the `GradientBoosting` ensemble regression model built using sklearn packages.
-Using pickle, the model is packaged to be able to be used externally.
-
 <a name="prep"></a>
 ### 2.2. Preprocessing
 |__Problem__|__Data__|__Methods__|__Libs__|__Link__|
