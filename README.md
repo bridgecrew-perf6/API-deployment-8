@@ -33,10 +33,10 @@ The selected prediction model is the `GradientBoosting` ensemble regression mode
 Using pickle, the model is packaged to be able to be used externally.
 
 <a name="prep"></a>
-### Preprocessing
+### 2.2. Preprocessing
 |__Problem__|__Data__|__Methods__|__Libs__|__Link__|
 |-|-|-|-|-|
-|Data preprocessing |json input| |`pandas`, `numpy`,| |
+|Data preprocessing |json input| |`python`| |
 
 The required input from the user is either mandatory or optional. The mandatory fields must have the required inputs in the stipumated formats. All optional features, will have a default null value, which is translated as False or 0 by the prediction model.
 
@@ -46,10 +46,10 @@ Ensuring all features have a value in the correct data types.
 The required input from the user is either mandatory or optional. The mandatory fields must have the required inputs in the stipumated formats.
 
 <a name="pred"></a>
-### Fitting the Data
+### 2.3. Fitting the Data
 |__Problem__|__Data__|__Methods__|__Libs__|__Link__|
 |-|-|-|-|-|
-|`Prediction`|json from API|`predict`|`pickle`||
+|`Prediction`|json from API|`predict`, `pickle`||
 
 The prediction file takes input data from the user, sends it through the required preprocessing steps and passes this data to the model.
 The input data is in json format, and returns a json output, consisting of the house price prediction, and either an error message, or a success message.
