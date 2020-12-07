@@ -1,0 +1,20 @@
+{
+    "data": {
+        "area": 10,
+        "property-type": "APARTMENT",
+        "rooms-number": 1,
+        "zip-code": 1000,
+        "land-area": null,
+        "garden": true,
+        "garden-area": 49,
+        "equipped-kitchen": null,
+        "full-address": "djfg",
+        "swimmingpool": false,
+        "furnished": null,
+        "open-fire": false,
+        "terrace": true,
+        "terrace-area": 40,
+        "facades-number": 2,
+        "building-state": null
+    }
+}
