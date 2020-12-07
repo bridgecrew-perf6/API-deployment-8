@@ -15,7 +15,7 @@ This project was a collaborative effort between four members of the *Bouwman2* p
 For quick reference, the repository is divided into the relevant sections, each with it's own resources and outline.  
 2.1. [The model](#model)  
 2.2. [Preprocessing](#prep)  
-2.3. [Predict](#pred)  
+2.3. [Fitting the Data](#pred)  
 2.4. [The API](#api)  
 2.5. [Docker](#doc)  
 
