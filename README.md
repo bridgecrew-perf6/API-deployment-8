@@ -49,7 +49,7 @@ The required input from the user is either mandatory or optional. The mandatory 
 ### 2.3. Fitting the Data
 |__Problem__|__Data__|__Methods__|__Libs__|__Link__|
 |-|-|-|-|-|
-|Prediction|json from API|`predict`, `pickle`||
+|Prediction|json from API||`predict`, `pickle`| |
 
 The prediction file takes input data from the user, sends it through the required preprocessing steps and passes this data to the model.
 The input data is in json format, and returns a json output, consisting of the house price prediction, and either an error message, or a success message.
