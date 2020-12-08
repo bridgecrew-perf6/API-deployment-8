@@ -59,8 +59,8 @@ Below are the 16 keys use to define [input data](#input), in the appropriate for
         "terrace": *Optional* **[bool]**,</br>
         "terrace-area": *Optional* **[int]**,</br>
         "facades-number": *Optional* **[int]**,</br>
-        "building-state": *Optional* ["NEW" | "GOOD" | "TO RENOVATE" | "JUST RENOVATED" | "TO REBUILD"]</br>
-}</br>
+        "building-state": *Optional* ["NEW" | "GOOD" | "TO RENOVATE" | "JUST RENOVATED" | "TO REBUILD"]</br>}
+
 
 The input fields are either mandatory or if not, described as *Optional*. Each feature accepts a specific data type `int, bool and str` (for integer, boolean and string respectively).  
 The features property-type and building-state accept one value out of a list of options, in uppercase.  
