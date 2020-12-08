@@ -96,6 +96,7 @@ Returns json data with predicted house price.
   `GET` `POST`
   
 * **Data Params**
+
    [Data](#input)
 
 * **Success Response:**
@@ -112,15 +113,7 @@ Returns json data with predicted house price.
 
 * **Sample Call:**
 
-  ```javascript
-    $.ajax({
-      url: "/users/1",
-      dataType: "json",
-      type : "GET",
-      success : function(r) {
-        console.log(r);
-      }
-    });
+  ```
   ```
 
 
