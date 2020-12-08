@@ -13,28 +13,33 @@ json_schema = {
         "data": {
             "title": "Input data",
             "type": "object",
-            "required": ["area", "property-type", "rooms-number", "zip-code", "land-area", "garden", "garden-area", "equipped-kitchen", "full-address", "swimmingpool", "furnished", "open-fire", "terrace", "terrace-area", "facades-number", "building-state"],
+            "required": ["area", "property-type", "rooms-number", "zip-code"],
             "properties": {
                 "area": {"title": "Area", "type": "integer", "exclusiveMinimum": 0},
-                "property-type": {"title": "Type of property", "type": "string", "enum": ["APARTMENT", "HOUSE", "OTHERS"]},
-                "rooms-number": {"title": "Number of rooms", "type": "integer", "minimum": 1},
-                "zip-code": {
-                    "title": "Belgian zip-code",
-                    "enum": postcodes
+                "property-type": {
+                    "title": "Type of property",
+                    "type": "string",
+                    "enum": ["APARTMENT", "HOUSE", "OTHERS"],
                 },
-                "land-area": {"type": ["integer", "null"], "minimum": 1},
-                "garden": {"type": ["boolean", "null"], "default": False},
-                "garden-area": {"type": ["integer", "null"], "minimum": 1},
-                "equipped-kitchen": {"type": ["boolean", "null"], "default": False},
-                "full-address": {"type": ["string", "null"]},
-                "swimmingpool": {"type": ["boolean", "null"], "default": False},
-                "furnished": {"type": ["boolean", "null"], "default": False},
-                "open-fire": {"type": ["boolean", "null"], "default": False},
-                "terrace": {"type": ["boolean", "null"], "default": False},
-                "terrace-area": {"type": ["integer", "null"], "minimum": 1},
-                "facades-number": {"type": ["integer", "null"], "minimum": 1},
+                "rooms-number": {
+                    "title": "Number of rooms",
+                    "type": "integer",
+                    "minimum": 1,
+                },
+                "zip-code": {"title": "Belgian zip-code", "enum": postcodes},
+                "land-area": {"type": "integer", "default": 0},
+                "garden": {"type": "boolean", "default": False},
+                "garden-area": {"type": "integer"},
+                "equipped-kitchen": {"type": "boolean", "default": False},
+                "full-address": {"type": "string"},
+                "swimmingpool": {"type": "boolean", "default": False},
+                "furnished": {"type": "boolean", "default": False},
+                "open-fire": {"type": "boolean", "default": False},
+                "terrace": {"type": "boolean", "default": False},
+                "terrace-area": {"type": "integer"},
+                "facades-number": {"type": "integer"},
                 "building-state": {
-                    "type": ["string", "null"],
+                    "type": "string",
                     "default": "GOOD",
                     "enum": [
                         "NEW",
@@ -42,13 +47,12 @@ json_schema = {
                         "TO RENOVATE",
                         "JUST RENOVATED",
                         "TO REBUILD",
-                        None
                     ],
                 },
             },
-        }
+        },
     },
 }
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     print(json_schema)
