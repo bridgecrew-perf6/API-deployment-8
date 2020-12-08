@@ -83,57 +83,55 @@ To get the prediction, one must at minimum enter a value for the features `area`
 The remaining features are optional and will use default values if none are provided.
 
 ### Instructions
-<Additional information about your API call. Try to use verbs that match both request type (fetching vs modifying) and plurality (one vs multiple).>
+**Show User**
+----
+  Returns json data about a single user.
 
-URL
+* **URL**
 
-<The URL Structure (path only, no root url)>
+  /users/:id
 
-Method:
+* **Method:**
 
-<The request type>
+  `GET` 
+  
+*  **URL Params**
 
-GET | POST | DELETE | PUT
+   **Required:**
+ 
+   `id=[integer]`
 
-URL Params
+* **Data Params**
 
-<If URL params exist, specify them in accordance with name mentioned in URL section. Separate into optional and required. Document data constraints.>
+  None
 
-Required:
+* **Success Response:**
 
-id=[integer]
+  * **Code:** 200 <br />
+    **Content:** `{ id : 12, name : "Michael Bloom" }`
+ 
+* **Error Response:**
 
-Optional:
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** `{ error : "User doesn't exist" }`
 
-photo_id=[alphanumeric]
+  OR
 
-Data Params
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** `{ error : "You are unauthorized to make this request." }`
 
-<If making a post request, what should the body payload look like? URL Params rules apply here too.>
+* **Sample Call:**
 
-Success Response:
-
-<What should the status code be on success and is there any returned data? This is useful when people need to to know what their callbacks should expect!>
-
-Code: 200
-Content: { id : 12 }
-Error Response:
-
-<Most endpoints will have many ways they can fail. From unauthorized access, to wrongful parameters etc. All of those should be liste d here. It might seem repetitive, but it helps prevent assumptions from being made where they should be.>
-
-Code: 401 UNAUTHORIZED
-Content: { error : "Log in" }
-OR
-
-Code: 422 UNPROCESSABLE ENTRY
-Content: { error : "Email Invalid" }
-Sample Call:
-
-<Just a sample call to your endpoint in a runnable format ($.ajax call or a curl request) - this makes life easier and more predictable.>
-
-Notes:
-
-<This is where all uncertainties, commentary, discussion etc. can go. I recommend timestamping and identifying oneself when leaving comments here.>
+  ```javascript
+    $.ajax({
+      url: "/users/1",
+      dataType: "json",
+      type : "GET",
+      success : function(r) {
+        console.log(r);
+      }
+    });
+  ```
 
 
 
