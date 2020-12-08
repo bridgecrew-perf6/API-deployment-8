@@ -30,8 +30,7 @@ Dummy values: All categorical variables and boolean values are given dummy(numer
 
 The `model.py` file contains all the code that was used to train the models. The dataset is available as well in [assets](https://github.com/orhannurkan/API-deployment/tree/main/assets)
 
-The model is then [pickled](https://docs.python.org/3/library/pickle.html) to be used for prediction.
-`install pickle`, `pickle.dump()`
+The model is then [pickled](https://docs.python.org/3/library/pickle.html) to be used for prediction using the function `pickle.dump()`
 
 
 <a name="prep"></a>
