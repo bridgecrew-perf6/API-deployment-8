@@ -1,81 +1,117 @@
 # API-deployment
 
 # 1. The Project
-
 Following a succesful Data Scraping project of Real Estate websites of Belgium, Data Cleaning and Visualization project to clean, study and understand the data, and Machine Learning Project to apply Regression models to predict house prices, the team was challenged to create an API through which data can be received and predicted home prices can be outputted.
 
 The API is to be used by the web developers to create a website around. This repository contains all the information and resources that went into achieving this.
 
-## 1.1. The Team
 
-This project was a collaborative effort between four members of the _Bouwman2_ promotion at [BeCode](https://github.com/becodeorg), Brussels, in December 2020. The team comprised of [Orhan Nurkan](https://github.com/orhannurkan), [Christophe Giets](https://github.com/gietsc), [Sara Silvente](https://github.com/silventesa), and [Naomi Thiru](https://github.com/naomithiru)
+## 1.1. The Team
+This project was a collaborative effort between four members of the *Bouwman2* promotion at [BeCode](https://github.com/becodeorg), Brussels, in December 2020. The team comprised of [Orhan Nurkan](https://github.com/orhannurkan), [Christophe Giets](https://github.com/gietsc), [Sara Silvente](https://github.com/silventesa), and [Naomi Thiru](https://github.com/naomithiru)
+
 
 # 2. Contents
-
 For quick reference, the repository is divided into the relevant sections, each with it's own resources and outline.  
 2.1. [The model](#model)  
 2.2. [Preprocessing](#prep)  
 2.3. [Fitting the Data](#pred)  
 2.4. [The API](#api)  
-2.5. [Docker](#doc)
+2.5. [Docker](#doc)  
 
 <a name="model"></a>
-
 ## 2.1. The model
+|__Problem__|__Data__|__Methods__|__Libs__|__Link__|
+|-|-|-|-|-|
+|Machine Learning model|Belgium Real Estate Dataset |Regression|`pandas`, `numpy`, `sklearn`, `pickle`|https://github.com/orhannurkan/API-deployment/blob/main/app/model/model.py|
 
-| **Problem**            | **Data**             | **Methods** | **Libs**                                                        | **Link** |
-| ---------------------- | -------------------- | ----------- | --------------------------------------------------------------- | -------- |
-| Machine Learning model | House attribute data | Regression  | `pandas`, `numpy`, `sklearn`, `seaborn`, `matplotlib`, `pickle` |          |
+The features used in this prediction model are: `'house_is','property_subtype', 'price', 'postcode', 'area','rooms_number', 'equipped_kitchen_has', 'garden', 'garden_area','terrace', 'terrace_area', 'furnished', 'swimming_pool_has','land_surface', 'building_state_agg', 'open_fire', 'longitude','latitude'`
 
-The model used was selected out of several models based on it's accuracy score. The `model.py` file contains all the code that was used to train the models. The dataset is available as well in this repository.
+Dummy values: All categorical variables and boolean values are given dummy(numerical) values, to convert them into correct formats for the machine learning model using pandas `pd.get dummies`. This results in 40 variables passed to a model, which defines the number of variables expected from the preprocessing stage.
 
-The dataset used the sklearn's OneHotEncoder to convert categorial columns to a format which would be useful for a machin learning model.
+The `model.py` file contains all the code that was used to train the models. The dataset is available as well in [assets](https://github.com/orhannurkan/API-deployment/tree/main/assets)
+
+The model is then [pickled](https://docs.python.org/3/library/pickle.html) to be used for prediction.
+`install pickle`, `pickle.dump()`
+
 
 <a name="prep"></a>
+## 2.2. Preprocessing
+|__Problem__|__Data__|__Methods__|__Libs__|__Link__|
+|-|-|-|-|-|
+|Data preprocessing |[JSON input](#input)| |`python`|https://github.com/orhannurkan/API-deployment/tree/main/preprocessing |
 
-### 2.2. Preprocessing
+The input data is preprocessed according to the model requirements.(formats, number of variables)
 
-| **Problem**        | **Data**   | **Methods** | **Libs** | **Link** |
-| ------------------ | ---------- | ----------- | -------- | -------- |
-| Data preprocessing | json input |             | `python` |          |
+Below are the 16 keys use to define [input data](#input), in the appropriate formats: 
+"data": {
+        "area": **int**,
+        "property-type": ["APARTMENT" | "HOUSE" | "OTHERS"],
+        "rooms-number": **int**,
+        "zip-code": **int**,
+        "land-area": *Optional* **[int]**,
+        "garden": *Optional* **[bool]**,
+        "garden-area": *Optional* **[int]**,
+        "equipped-kitchen": *Optional* **[bool]**,
+        "full-address": *Optional* **[str]**,
+        "swimmingpool": *Optional* **[bool]**,
+        "furnished": *Optional* **[bool]**,
+        "open-fire": *Optional* **[bool]**,
+        "terrace": *Optional* **[bool]**,
+        "terrace-area": *Optional* **[int]**,
+        "facades-number": *Optional* **[int]**,
+        "building-state": *Optional* ["NEW" | "GOOD" | "TO RENOVATE" | "JUST RENOVATED" | "TO REBUILD"]
+}
 
-The required input from the user is either mandatory or optional. The mandatory fields must have the required inputs in the stipumated formats. All optional features, will have a default null value, which is translated as False or 0 by the prediction model.
+The input fields are either mandatory or if not, described as *Optional*. Each feature accepts a specific data type `int, bool and str` (for integer, boolean and string respectively).  
+The features property-type and building-state accept one value out of a list of options, in uppercase.  
 
-The steps of preprocessing the data include:  
--Normalizing the category names to match the feature names of the training dataset to avoid conflicts.  
--Ensuring all features have a value in the correct data types.
+The preprocessing function employs the use of [JSON Schema Validator](https://json-schema.org/implementations.html) to define the variables and expected values. 
+
+
+**Important points to note:**  
+-All optional features, will have a default null value, which is coverted to False or 0, for the prediction model.  
+-The category names are converted to match the feature names of the training dataset to avoid conflicts.  
+-Location data; Using Google APIs, the feature `full-address` is parsed and `longitude` & `latitude` fatures extracted, which are very important for better prediction accuracy.  
+-Dummy values are created using `pd.get_dummies`, to convert catgorical and boolean values, and create 40 features as expcted by the prediction model.
+
+The preprocessing step returns a `json_input_cleaned` output.
 
 <a name="pred"></a>
+## 2.3. Fitting the Data
+|__Problem__|__Data__|__Methods__|__Libs__|__Link__|
+|-|-|-|-|-|
+|Prediction|json from API||`predict`, `pickle`| (https://github.com/orhannurkan/API-deployment/tree/main/predict)|
 
-### 2.3. Fitting the Data
+The prediction file `prediction.py` takes a cleaned json input and returns a [JSON output](#output), consisting of the house price prediction, and either an error message, or a success message.
 
-| **Problem** | **Data**      | **Methods** | **Libs**            | **Link** |
-| ----------- | ------------- | ----------- | ------------------- | -------- |
-| Prediction  | json from API |             | `predict`, `pickle` |          |
-
-The prediction file `prediction.py` takes input data from the user, sends it through the required preprocessing steps and passes this data to the model.
-The input data is in json format, and returns a json output, consisting of the house price prediction, and either an error message, or a success message.
 
 <a name="api"></a>
+## 2.4. The API
+|__Problem__|__Data__|__Methods__|__Libs__|__Link__|
+|-|-|-|-|-|
+|Deployment|[JSON output](#output)||`Flask`, `pickle`, |(https://github.com/orhannurkan/API-deployment/blob/main/app.py)|
 
-### 2.4. NAME_OF_THE_API API
+The API has been developed with [Flask](https://flask.palletsprojects.com/en/1.1.x/), one of the most popular Python web application frameworks.
 
-The NAME_OF_THE_API API receives data on features of real estate properties in Belgium (input data) and returns a prediction of properties' price (output).
+The API gets [input](#input-requirements) on JSON format, which is [preprocessed](#prep) according to the model requirements. The prediction is then made based on a [machine learning model](#model) and returns a prediction of properties' price (output).
 
-This API has been built by [Christophe Giets](https://github.com/gietsc), [Naomi Thiru](https://github.com/naomithiru), [Orhan Nurkan](https://github.com/orhannurkan) and [Sara Silvente](https://github.com/silventesa).
+The 16 keys to be used to send user data in the appropriate format are outlined [here](#input).  
+To get the prediction, one must at minimum enter a value for the features `area`, `property-type`, `rooms-number` and `zip-code` (they are mandatory features).
+The remaining features are optional and will use default values if none are provided.
 
-## How does NAME_OF_THE_API work?
+### Instructions
+*write instructions: Source code = app.py, etc.*
 
-NAME_OF_THE_API has been developed with [Flask](https://flask.palletsprojects.com/en/1.1.x/), one of the most popular Python web application frameworks.
+### Routes
+GET
+POST
 
-NAME_OF_THE_API gets data on JSON format. After having assessed the appropriateness of the input ([see "Input requirements" section below](#input-requirements)), data is first [preprocessed](https://github.com/orhannurkan/API-deployment/blob/main/app/preprocessing/cleaning_data.py) according to the model requirements. The prediction is then made based on a [machine learning model](https://github.com/orhannurkan/API-deployment/blob/main/app/model/model.py) that has been [previously trained](https://github.com/orhannurkan/API-deployment/blob/Naomi/app/model/def_dataset.csv) upon/with NUMBER_OF_PROPERTIES properties for sale across Belgium.
+<a name="doc"></a>
+## 2.5. Docker
+|__Problem__|__Data__|__Methods__|__Libs__|__Link__|
+|-|-|-|-|-|
+|Share environment|`Dockerfile`, `requirements.txt`||`python`,`pip`|| |
 
-## Instructions
+The `Dockerfile` allows you to start an environment from the latest version of Ubuntu. Once your environment is running on the latest Ubuntu version, it installs the latest version of Python (`python3.8`) and `pip`. Then using `pip`, it will install all the necessary packages located in the `requirements.txt` file.
 
-_write instructions: Source code = app.py, etc._
-
-## Input requirements
-
-NAME_OF_THE_API gets data in **[JSON format](https://www.json.org/json-en.html)** and returns a prediction in the same format.
-
-_16 keys you can use to send your data in the appropriate format / mandatory and optional instances / each feature accepts a specific data type (<code>int</code>, <code>bool</code> and <code>str</code> stand for <i>integer</i>, <i>boolean</i> and <i>string</i>, respectively). The features <code>property-type</code> and <code>building-state</code> accept only one of the values that are indicated (in capitals) / etc._
+Using `gunicorn`
