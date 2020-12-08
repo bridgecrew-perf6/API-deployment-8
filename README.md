@@ -129,3 +129,5 @@ The `Dockerfile` contains the code to start an environment from the latest versi
 If you are unfamiliar with some concepts on Docker, we recommend you to check this documentation on Docker : https://github.com/becodeorg/BXL-Bouman-2.22/tree/master/content/05.deployment/2.0.Docker 
 
 ## 2.6. Heroku
+In case you would like to try our API and run on container on a Web Application Service, you can do this on Heroku.
+The following documentation will help you to try our API with our environment prepared on Docker : https://github.com/becodeorg/BXL-Bouman-2.22/tree/master/content/05.deployment/4.Web_Application
