@@ -1,6 +1,6 @@
 # Definition of Json schema
 
-from zip_codes_belgium import zip_codes
+from listler import postcodes
 
 global json_schema
 json_schema = {
@@ -13,22 +13,14 @@ json_schema = {
         "data": {
             "title": "Input data",
             "type": "object",
-            "minProperties": 16,
+            "required": ["area", "property-type", "rooms-number", "zip-code", "land-area", "garden", "garden-area", "equipped-kitchen", "full-address", "swimmingpool", "furnished", "open-fire", "terrace", "terrace-area", "facades-number", "building-state"],
             "properties": {
                 "area": {"title": "Area", "type": "integer", "exclusiveMinimum": 0},
-                "property-type": {
-                    "title": "Type of property",
-                    "type": "string",
-                    "enum": ["APARTMENT", "HOUSE", "OTHERS"],
-                },
-                "rooms-number": {
-                    "title": "Number of rooms",
-                    "type": "integer",
-                    "minimum": 1,
-                },
+                "property-type": {"title": "Type of property", "type": "string", "enum": ["APARTMENT", "HOUSE", "OTHERS"]},
+                "rooms-number": {"title": "Number of rooms", "type": "integer", "minimum": 1},
                 "zip-code": {
                     "title": "Belgian zip-code",
-                    "enum": zip_codes,
+                    "enum": postcodes
                 },
                 "land-area": {"type": ["integer", "null"], "minimum": 1},
                 "garden": {"type": ["boolean", "null"], "default": False},
