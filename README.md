@@ -124,8 +124,8 @@ Returns json data with predicted house price.
 |-|-|-|-|-|
 |Environment|`Dockerfile`, `requirements.txt`,`Procfile`|||https://github.com/orhannurkan/API-deployment/blob/main/Dockerfile| |
 
-The `Dockerfile` contains the code to start an environment from the latest version of Ubuntu. Once your environment is running on the latest Ubuntu version, it will install the latest version of Python (`python3.8.5`) and `pip`. Then with `pip`, it will install all the necessary packages located in the `requirements.txt` file.
+The `Dockerfile` contains the code to start an environment from the latest version of Ubuntu. Once your environment is running on the latest Ubuntu version, it will install the latest version of Python (`python3.8.5`) and `pip` (packages installer for Python). Then with `pip`, it will install all the necessary packages located in the `requirements.txt` file.
 
-In case you are unfamiliar with some concepts on Docker, we recommend you to check BeCode documentation on Docker : https://github.com/becodeorg/BXL-Bouman-2.22/tree/master/content/05.deployment/2.0.Docker 
+If you are unfamiliar with some concepts on Docker, we recommend you to check this documentation on Docker : https://github.com/becodeorg/BXL-Bouman-2.22/tree/master/content/05.deployment/2.0.Docker 
 
 ## 2.6. Heroku
