@@ -8,10 +8,6 @@ from jsonschema.validators import Draft7Validator
 from json_schema_file import json_schema
 from listler import subtype, postcodes
 
-
-# from sklearn.preprocessing import OneHotEncoder
-# from sklearn.compose import make_column_transformer
-
 # Json Example 1
 # json_input_file = open("json_data.json")  # open json file
 # json_input_1 = json.load(json_input_file)  # convert to python dict
@@ -30,7 +26,7 @@ json_input_2 = {
         "full-address": "djfg",  # Optional
         "swimmingpool": True,  # Optional
         "furnished": False,  # Optional
-        "open-fire": True,  # Optional
+        "open-fire": 9,  # Optional
         "terrace": False,  # Optional
         "terrace-area": 98,  # Optional
         "facades-number": 16,  # >1 & <10 #Optional
@@ -48,6 +44,7 @@ def preprocess(json_input):
 
     # 2. Show input errors in a readable, user-friendly way
     readable_input_errors = []
+    global error
     for error in validator.iter_errors(instance=json_input):
         if len(error.path) == 0:
             readable_input_errors.append(f"In 'properties': {error.message}")
@@ -57,11 +54,12 @@ def preprocess(json_input):
     error_input = "\n".join(readable_input_errors)
 
     # 3. Input validation. If no errors are found, preprocess the input data.
+    global message
     message = ""
 
     if readable_input_errors:
         error = True
-        message = f"\n ERROR: The inputed data is not valid due to the errors below. Please fix them and send your data again.\n{error_input}\n"
+        message = error_input
 
     else:
         error = False
@@ -144,79 +142,5 @@ def preprocess(json_input):
 
 
 if __name__ == "__main__":
-    error, message, json_input = preprocess(json_input_2)
-    print({"error": error, "message": message, "preprocessed_input": json_input})
-
-    # types = ["APARTMENT", "HOUSE", "OTHERS"]
-    # state = ["NEW", "GOOD", "TO RENOVATE", "JUST RENOVATED", "TO REBUILD"]
-    # message = ""
-
-
-#   if error == False: ###########################
-# make other cleaning parts
-
-
-######################################################################################### BOOLEAN (6)
-# if bool(json_input["data"]["garden"]) not in [True]:
-#    json_input["data"]["garden"] = False  # default value; hence, "default":False
-# else:
-#    json_input["data"]["garden"] = True
-
-# if bool(json_input["data"]["equipped-kitchen"]) not in [True]:
-#    json_input["data"]["equipped-kitchen"] = False
-# else:
-#    json_input["data"]["equipped-kitchen"] = True
-
-# if bool(json_input["data"]["swimmingpool"]) not in [True]:
-#    json_input["data"]["swimmingpool"] = False
-# else:
-#    json_input["data"]["swimmingpool"] = True
-
-# if bool(json_input["data"]["furnished"]) not in [True]:
-#    json_input["data"]["furnished"] = False
-# else:
-#    json_input["data"]["furnished"] = True
-
-# if bool(json_input["data"]["open-fire"]) not in [True]:
-#    json_input["data"]["open-fire"] = False
-# else:
-#    json_input["data"]["open-fire"] = True
-
-# if bool(json_input["data"]["terrace"]) not in [True]:
-#    json_input["data"]["terrace"] = False
-# else:
-#    json_input["data"]["terrace"] = True
-
-############################################################################### INTEGERS
-# Minimum 1
-
-# if int(json_input["data"]["land-area"]) < 1:  # = "minimum": 1
-#    json_input["data"]["land-area"] = 0
-
-# if int(json_input["data"]["garden-area"]) < 1:
-#    json_input["data"]["garden-area"] = 0 # "minimum":0
-
-# if int(json_input["data"]["terrace-area"]) < 1:
-#   json_input["data"]["terrace-area"] = 0
-
-#        if int(json_input["data"]["facades-number"]) < 1: ################################333
-#            json_input["data"]["facades-number"] = 0 ########################################
-
-#        if int(json_input["data"]["facades-number"]) > 4: ####################################
-#            json_input["data"]["facades-number"] = 4 ########################################3
-
-################################################################################# STRINGS
-
-#        if json_input["data"]["full-address"] != "": #############################33
-# call API to get GPS location then ???????????????????
-# add latitude and latitude to json_input??????????????
-#            json_input["data"]["latitude"] = 0 #############################################
-#            json_input["data"]["longitude"] = 0 ###########################################
-
-
-# if json_input["data"]["building-state"] not in state:
-# Selected according to the median value of "Building state"
-#    json_input["data"]["building-state"] = "GOOD" # "default":"GOOD"
-# return error, message, json_input
-
-# error, message = preprocess(sample_json_input)
+    error, message, json_input_cleaned = preprocess(json_input_2)
+    print({"error": error, "message": message})
