@@ -75,68 +75,15 @@ The prediction file `prediction.py` takes a cleaned json input and returns a [JS
 |-|-|-|-|-|
 |Deployment|[JSON output](#output)||`Flask`, `pickle`, |(https://github.com/orhannurkan/API-deployment/blob/main/app.py)|
 
-The API has been developed with [Flask](https://flask.palletsprojects.com/en/1.1.x/), one of the most popular Python web application frameworks.
-
-The API has a POST route, which gets the [JSON input](#input)
-
-The API gets [JSON input](#input), which is [preprocessed](#prep) according to the model requirements. The prediction is then made based on a [machine learning model](#model) and returns a prediction of properties' price (output).
+The API has been developed with [Flask](https://flask.palletsprojects.com/en/1.1.x/), one of the most popular Python web application frameworks. The API gets [JSON input](#input), which is [preprocessed](#prep) according to the model requirements. The prediction is then made based on a [machine learning model](#model) and returns a prediction of properties' price (output).
 
 The 16 keys to be used to send user data in the appropriate format are outlined [here](#input).  
 To get the prediction, one must at minimum enter a value for the features `area`, `property-type`, `rooms-number` and `zip-code` (they are mandatory features).
 The remaining features are optional and will use default values if none are provided.
 
 ### Instructions
-*write instructions: Source code = app.py, etc.*
 
-**Show User**
-----
-  Returns json data about a single user.
 
-* **URL**
-
-  /users/:id
-
-* **Method:**
-
-  `GET` 
-  
-*  **URL Params**
-
-   **Required:**
- 
-   `id=[integer]`
-
-* **Data Params**
-
-  None
-
-* **Success Response:**
-
-  * **Code:** 200 <br />
-    **Content:** `{ id : 12, name : "Michael Bloom" }`
- 
-* **Error Response:**
-
-  * **Code:** 404 NOT FOUND <br />
-    **Content:** `{ error : "User doesn't exist" }`
-
-  OR
-
-  * **Code:** 401 UNAUTHORIZED <br />
-    **Content:** `{ error : "You are unauthorized to make this request." }`
-
-* **Sample Call:**
-
-  ```javascript
-    $.ajax({
-      url: "/users/1",
-      dataType: "json",
-      type : "GET",
-      success : function(r) {
-        console.log(r);
-      }
-    });
-  ```
 
 <a name="doc"></a>
 ## 2.5. Docker
