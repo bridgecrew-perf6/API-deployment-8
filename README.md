@@ -52,3 +52,6 @@ The input data is in json format, and returns a json output, consisting of the h
 ## 2.4. The API
 
 ## 2.5. Docker
+|__Problem__|__Data__|__Methods__|__Libs__|__Link__|
+|-|-|-|-|-|
+|Share environment||`App.py`, `Dockerfile`, `requirements.txt`| |`flask`,`numpy`| |
