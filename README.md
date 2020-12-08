@@ -92,7 +92,7 @@ The prediction file `prediction.py` takes a cleaned json input and returns a [JS
 
 The API has been developed with [Flask](https://flask.palletsprojects.com/en/1.1.x/), one of the most popular Python web application frameworks.
 
-The API gets [input](#input-requirements) on JSON format, which is [preprocessed](#prep) according to the model requirements. The prediction is then made based on a [machine learning model](#model) and returns a prediction of properties' price (output).
+The API gets [input](#input) on JSON format, which is [preprocessed](#prep) according to the model requirements. The prediction is then made based on a [machine learning model](#model) and returns a prediction of properties' price (output).
 
 The 16 keys to be used to send user data in the appropriate format are outlined [here](#input).  
 To get the prediction, one must at minimum enter a value for the features `area`, `property-type`, `rooms-number` and `zip-code` (they are mandatory features).
