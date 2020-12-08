@@ -110,7 +110,7 @@ POST
 ## 2.5. Docker
 |__Problem__|__Data__|__Methods__|__Libs__|__Link__|
 |-|-|-|-|-|
-|Share environment|`Dockerfile`, `requirements.txt`||`python`,`pip`|| |
+|Share environment|`Dockerfile`, `requirements.txt`||`python`,`pip`|| https://github.com/orhannurkan/API-deployment/blob/main/Dockerfile |
 
 The `Dockerfile` allows you to start an environment from the latest version of Ubuntu. Once your environment is running on the latest Ubuntu version, it installs the latest version of Python (`python3.8`) and `pip`. Then using `pip`, it will install all the necessary packages located in the `requirements.txt` file.
 
