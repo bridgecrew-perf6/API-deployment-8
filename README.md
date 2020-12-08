@@ -23,12 +23,11 @@ For quick reference, the repository is divided into the relevant sections, each 
 |-|-|-|-|-|
 |Machine Learning model|Belgium Real Estate Dataset |Regression|`pandas`, `numpy`, `sklearn`, `pickle`|https://github.com/orhannurkan/API-deployment/blob/main/app/model/model.py|
 
-The features used in this prediction model are: </br>
-`'house_is','property_subtype', 'price', 'postcode', 'area','rooms_number', 'equipped_kitchen_has', 'garden', 'garden_area','terrace', 'terrace_area', 'furnished', 'swimming_pool_has','land_surface', 'building_state_agg', 'open_fire', 'longitude','latitude'`
+The features used in this prediction model are:</br> `'house_is','property_subtype', 'price', 'postcode', 'area','rooms_number', 'equipped_kitchen_has', 'garden', 'garden_area','terrace', 'terrace_area', 'furnished', 'swimming_pool_has','land_surface', 'building_state_agg', 'open_fire', 'longitude','latitude'`
 
-Dummy values: All categorical variables and boolean values are given dummy(numerical) values, to convert them into correct formats for the machine learning model using pandas `pd.get dummies`. This results in 40 variables passed to a model, which defines the number of variables expected from the preprocessing stage.
+Dummy values: All categorical variables and boolean values are given dummy(numerical) values, to convert them into appropriate formats for the prediction model.
 
-The `model.py` file contains all the code that was used to train the models. The dataset is available as well in [assets](https://github.com/orhannurkan/API-deployment/tree/main/assets)
+The `model.py` file contains all the code used to train the model. The dataset is available as well in [assets](https://github.com/orhannurkan/API-deployment/tree/main/assets)
 
 The model is then [pickled](https://docs.python.org/3/library/pickle.html) to be used for prediction using the function `pickle.dump()`
 
@@ -40,24 +39,21 @@ The model is then [pickled](https://docs.python.org/3/library/pickle.html) to be
 |Data preprocessing |[JSON input](#input)| |`python`, `JSON Schema Validator`|https://github.com/orhannurkan/API-deployment/tree/main/preprocessing |
 
 The input data is preprocessed according to the model requirements(formats, number of variables).
+The preprocessing function employs the use of [JSON Schema Validator](https://github.com/Julian/jsonschema) to define the variables and expected values. The 16 keys use to define [JSON_input](#input), and the appropriate formats are: </br>
+mandatory data: {`"area":[int]`,`"property-type": ["APARTMENT" | "HOUSE" |  "OTHERS"]`,`"rooms-number":[int]`,`"zip-code":[int]`}
 
-Below are the 16 keys use to define [JSON input](#input), and the appropriate formats: </br>
-`mandatory data: {"area":[int],"property-type": ["APARTMENT" | "HOUSE" | "OTHERS"],"rooms-number":[int],"zip-code":[int]}`
-
-`optional data: {"land-area":[int],"garden":[bool],"garden-area":[int],"equipped-kitchen": [bool],"full-address": [str],"swimmingpool": [bool],"furnished":[bool],"open-fire":[bool],"terrace":[bool],"terrace-area":[int],"facades-number": [int],"building-state":["NEW" | "GOOD" | "TO RENOVATE" | "JUST RENOVATED" | "TO REBUILD"] }`
+optional data: {`"land-area":[int]`,`"garden":[bool]`,`"garden-area":[int]`,`"equipped-kitchen": [bool]`,`"full-address":[str]`,`"swimmingpool":[bool]`,`"furnished":[bool]`,`"open-fire":[bool]`,`"terrace":[bool]`,`"terrace-area":[int]`,`"facades-number":[int]`,`"building-state":["NEW" | "GOOD" | "TO RENOVATE" | "JUST RENOVATED" | "TO REBUILD"]` }
 
 
-- The input fields are either mandatory or if not, described as *Optional*. Each feature accepts a specific data type `int, bool and str` (for integer, boolean and string respectively).  
+- Each feature accepts a specific data type `int, bool and str` (for integer, boolean and string respectively).  
 - The features property-type and building-state accept one value out of a list of options, in uppercase.  
-
-The preprocessing function employs the use of [JSON Schema Validator](https://github.com/Julian/jsonschema) to define the variables and expected values.
 
 
 **Important points to note:**  
-* All optional features, will have a default null value, which is coverted to False or 0, for the prediction model.  
+* All optional features have a default null value, which is coverted to False or 0, for the prediction model.  
 * The category names are converted to match the feature names of the training dataset to avoid conflicts.  
 * Location data; Using Google APIs, the feature `full-address` is parsed and `longitude` & `latitude` fatures extracted, which are very important for better prediction accuracy.  
-* Dummy values are created using `pd.get_dummies`, to convert catgorical and boolean values, and create 40 features as expcted by the prediction model.
+* Dummy values are created to convert catgorical and boolean values, and create corresponding features as expected by the prediction model.
 
 The preprocessing step returns a `json_input_cleaned` output.
 
@@ -65,43 +61,40 @@ The preprocessing step returns a `json_input_cleaned` output.
 ## 2.3. Fitting the Data
 |__Problem__|__Data__|__Methods__|__Libs__|__Link__|
 |-|-|-|-|-|
-|Prediction|json from API||`predict`, `pickle`| (https://github.com/orhannurkan/API-deployment/tree/main/predict)|
+|Prediction|json from API|Function|`python`, `pickle`| (https://github.com/orhannurkan/API-deployment/tree/main/predict)|
 
-The prediction file `prediction.py` takes a cleaned json input and returns a [JSON output](#output), consisting of the house price prediction, and either an error message, or a success message.
+The prediction file `prediction.py` takes the `json_input_cleaned` and returns a [JSON output](#output), consisting of the house price prediction, and either an error message, or a success message.
 
 
 <a name="api"></a>
 ## 2.4. The API
 |__Problem__|__Data__|__Methods__|__Libs__|__Link__|
 |-|-|-|-|-|
-|Deployment|[JSON output](#output)||`Flask`, `pickle`, |(https://github.com/orhannurkan/API-deployment/blob/main/app.py)|
+|Deployment|[JSON output](#output)|GET, POST|`Flask`, `pickle`, `request`, `jsonify`, `make_response` |(https://github.com/orhannurkan/API-deployment/blob/main/app.py)|
 
-The API has been developed with [Flask](https://flask.palletsprojects.com/en/1.1.x/), one of the most popular Python web application frameworks. The API gets [JSON input](#input), which is [preprocessed](#prep) according to the model requirements. The prediction is then made based on a [machine learning model](#model) and returns a prediction of properties' price (output).
+The API has been developed with [Flask](https://flask.palletsprojects.com/en/1.1.x/), one of the most popular Python web application frameworks.
+The API gets [JSON_input](#input), which is [preprocessed](#prep) according to the model requirements. The prediction is then made based on a [machine learning model](#model) and returns a prediction of properties' price (output).
 
 The 16 keys to be used to send user data in the appropriate format are outlined [here](#input).  
-To get the prediction, one must at minimum enter a value for the features `area`, `property-type`, `rooms-number` and `zip-code`.
+To get the prediction, one must at minimum enter a value for the features `area`, `property-type`, `rooms-number` and `zip-code` (they are mandatory features).
 The remaining features are optional and will use default values if none are provided.
 
 ### Instructions
-**Show User**
-----
-Returns json data with predicted house price.
 
-* **URL**
+  API returns json data with predicted house price.
 
-  /users/:id
 
 * **Method:**
 
   `GET` `POST`
   
 * **Data Params**
-
-   [Data](#input)
+  
+   [JSON_input](#input)
 
 * **Success Response:**
 
-  * **Code:** 200 <br />
+  * **Code:** 200 OK <br />
     **Content:** `{"prediction": House price ",
                     "extra info": message }`
  
@@ -110,11 +103,6 @@ Returns json data with predicted house price.
   * **Code:** 406 Not Acceptable  <br />
     **Content:** `{ error : "Sorry, you should send minimum 4 mandatory features. You can GET more info by GET method to /predict link" }`
 
-
-* **Sample Call:**
-
-  ```
-  ```
 
 
 
