@@ -139,8 +139,10 @@ The remaining features are optional and will use default values if none are prov
 ## 2.5. Docker
 |__Problem__|__Data__|__Methods__|__Libs__|__Link__|
 |-|-|-|-|-|
-|Share environment|`Dockerfile`, `requirements.txt`||`python`,`pip`|| |
+|Environment|`Dockerfile`, `requirements.txt`,`Procfile`|||https://github.com/orhannurkan/API-deployment/blob/main/Dockerfile| |
 
-The `Dockerfile` allows you to start an environment from the latest version of Ubuntu. Once your environment is running on the latest Ubuntu version, it installs the latest version of Python (`python3.8`) and `pip`. Then using `pip`, it will install all the necessary packages located in the `requirements.txt` file.
+The `Dockerfile` contains the code to start an environment from the latest version of Ubuntu. Once your environment is running on the latest Ubuntu version, it will install the latest version of Python (`python3.8.5`) and `pip`. Then with `pip`, it will install all the necessary packages located in the `requirements.txt` file.
 
 Using `gunicorn`
+
+## 2.6. Heroku
