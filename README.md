@@ -23,7 +23,8 @@ For quick reference, the repository is divided into the relevant sections, each 
 |-|-|-|-|-|
 |Machine Learning model|Belgium Real Estate Dataset |Regression|`pandas`, `numpy`, `sklearn`, `pickle`|https://github.com/orhannurkan/API-deployment/blob/main/app/model/model.py|
 
-The features used in this prediction model are: `'house_is','property_subtype', 'price', 'postcode', 'area','rooms_number', 'equipped_kitchen_has', 'garden', 'garden_area','terrace', 'terrace_area', 'furnished', 'swimming_pool_has','land_surface', 'building_state_agg', 'open_fire', 'longitude','latitude'`
+The features used in this prediction model are: </br>
+`'house_is','property_subtype', 'price', 'postcode', 'area','rooms_number', 'equipped_kitchen_has', 'garden', 'garden_area','terrace', 'terrace_area', 'furnished', 'swimming_pool_has','land_surface', 'building_state_agg', 'open_fire', 'longitude','latitude'`
 
 Dummy values: All categorical variables and boolean values are given dummy(numerical) values, to convert them into correct formats for the machine learning model using pandas `pd.get dummies`. This results in 40 variables passed to a model, which defines the number of variables expected from the preprocessing stage.
 
@@ -41,9 +42,9 @@ The model is then [pickled](https://docs.python.org/3/library/pickle.html) to be
 The input data is preprocessed according to the model requirements(formats, number of variables).
 
 Below are the 16 keys use to define [JSON input](#input), and the appropriate formats: </br>
-`**mandatory data:** {"area":[int],"property-type": ["APARTMENT" | "HOUSE" | "OTHERS"],"rooms-number":[int],"zip-code":[int]}`
+`mandatory data: {"area":[int],"property-type": ["APARTMENT" | "HOUSE" | "OTHERS"],"rooms-number":[int],"zip-code":[int]}`
 
-`**optional data:** {"land-area":[int],"garden":[bool],"garden-area": *Optional* [int],"equipped-kitchen": [bool],"full-address": [str],"swimmingpool": [bool],"furnished":[bool],"open-fire":[bool],"terrace":[bool],"terrace-area":[int],"facades-number": [int],"building-state":["NEW" | "GOOD" | "TO RENOVATE" | "JUST RENOVATED" | "TO REBUILD"] }`
+`optional data: {"land-area":[int],"garden":[bool],"garden-area":[int],"equipped-kitchen": [bool],"full-address": [str],"swimmingpool": [bool],"furnished":[bool],"open-fire":[bool],"terrace":[bool],"terrace-area":[int],"facades-number": [int],"building-state":["NEW" | "GOOD" | "TO RENOVATE" | "JUST RENOVATED" | "TO REBUILD"] }`
 
 
 - The input fields are either mandatory or if not, described as *Optional*. Each feature accepts a specific data type `int, bool and str` (for integer, boolean and string respectively).  
