@@ -9,7 +9,6 @@ The API is to be used by the web developers to create a website around. This rep
 ## 1.1. The Team
 This project was a collaborative effort between four members of the *Bouwman2* promotion at [BeCode](https://github.com/becodeorg), Brussels, in December 2020. The team comprised of [Orhan Nurkan](https://github.com/orhannurkan), [Christophe Giets](https://github.com/gietsc), [Sara Silvente](https://github.com/silventesa), and [Naomi Thiru](https://github.com/naomithiru)
 
-
 # 2. Contents
 For quick reference, the repository is divided into the relevant sections, each with it's own resources and outline.  
 2.1. [The model](#model)  
@@ -37,41 +36,27 @@ The model is then [pickled](https://docs.python.org/3/library/pickle.html) to be
 ## 2.2. Preprocessing
 |__Problem__|__Data__|__Methods__|__Libs__|__Link__|
 |-|-|-|-|-|
-|Data preprocessing |[JSON input](#input)| |`python`|https://github.com/orhannurkan/API-deployment/tree/main/preprocessing |
+|Data preprocessing |[JSON input](#input)| |`python`, `JSON Schema Validator`|https://github.com/orhannurkan/API-deployment/tree/main/preprocessing |
 
-The input data is preprocessed according to the model requirements.(formats, number of variables)
+The input data is preprocessed according to the model requirements(formats, number of variables).
 
-Below are the 16 keys use to define [input data](#input), in the appropriate formats: </br>
-"data": { </br>
-        "area": **int**,</br>
-        "property-type": ["APARTMENT" | "HOUSE" | "OTHERS"],</br>
-        "rooms-number": **int**,</br>
-        "zip-code": **int**,</br>
-        "land-area": *Optional* **[int]**,</br>
-        "garden": *Optional* **[bool]**,</br>
-        "garden-area": *Optional* **[int]**,</br>
-        "equipped-kitchen": *Optional* **[bool]**,</br>
-        "full-address": *Optional* **[str]**,</br>
-        "swimmingpool": *Optional* **[bool]**,</br>
-        "furnished": *Optional* **[bool]**,</br>
-        "open-fire": *Optional* **[bool]**,</br>
-        "terrace": *Optional* **[bool]**,</br>
-        "terrace-area": *Optional* **[int]**,</br>
-        "facades-number": *Optional* **[int]**,</br>
-        "building-state": *Optional* ["NEW" | "GOOD" | "TO RENOVATE" | "JUST RENOVATED" | "TO REBUILD"]</br>}
+Below are the 16 keys use to define [JSON input](#input), and the appropriate formats: </br>
+`**mandatory data:** {"area":[int],"property-type": ["APARTMENT" | "HOUSE" | "OTHERS"],"rooms-number":[int],"zip-code":[int]}`
+
+`**optional data:** {"land-area":[int],"garden":[bool],"garden-area": *Optional* [int],"equipped-kitchen": [bool],"full-address": [str],"swimmingpool": [bool],"furnished":[bool],"open-fire":[bool],"terrace":[bool],"terrace-area":[int],"facades-number": [int],"building-state":["NEW" | "GOOD" | "TO RENOVATE" | "JUST RENOVATED" | "TO REBUILD"] }`
 
 
-The input fields are either mandatory or if not, described as *Optional*. Each feature accepts a specific data type `int, bool and str` (for integer, boolean and string respectively).  
-The features property-type and building-state accept one value out of a list of options, in uppercase.  
+- The input fields are either mandatory or if not, described as *Optional*. Each feature accepts a specific data type `int, bool and str` (for integer, boolean and string respectively).  
+- The features property-type and building-state accept one value out of a list of options, in uppercase.  
 
-The preprocessing function employs the use of [JSON Schema Validator](https://github.com/Julian/jsonschema) to define the variables and expected values. 
+The preprocessing function employs the use of [JSON Schema Validator](https://github.com/Julian/jsonschema) to define the variables and expected values.
 
 
 **Important points to note:**  
--All optional features, will have a default null value, which is coverted to False or 0, for the prediction model.  
--The category names are converted to match the feature names of the training dataset to avoid conflicts.  
--Location data; Using Google APIs, the feature `full-address` is parsed and `longitude` & `latitude` fatures extracted, which are very important for better prediction accuracy.  
--Dummy values are created using `pd.get_dummies`, to convert catgorical and boolean values, and create 40 features as expcted by the prediction model.
+* All optional features, will have a default null value, which is coverted to False or 0, for the prediction model.  
+* The category names are converted to match the feature names of the training dataset to avoid conflicts.  
+* Location data; Using Google APIs, the feature `full-address` is parsed and `longitude` & `latitude` fatures extracted, which are very important for better prediction accuracy.  
+* Dummy values are created using `pd.get_dummies`, to convert catgorical and boolean values, and create 40 features as expcted by the prediction model.
 
 The preprocessing step returns a `json_input_cleaned` output.
 
@@ -92,7 +77,9 @@ The prediction file `prediction.py` takes a cleaned json input and returns a [JS
 
 The API has been developed with [Flask](https://flask.palletsprojects.com/en/1.1.x/), one of the most popular Python web application frameworks.
 
-The API gets [input](#input) on JSON format, which is [preprocessed](#prep) according to the model requirements. The prediction is then made based on a [machine learning model](#model) and returns a prediction of properties' price (output).
+The API has a POST route, which gets the [JSON input](#input)
+
+The API gets [JSON input](#input), which is [preprocessed](#prep) according to the model requirements. The prediction is then made based on a [machine learning model](#model) and returns a prediction of properties' price (output).
 
 The 16 keys to be used to send user data in the appropriate format are outlined [here](#input).  
 To get the prediction, one must at minimum enter a value for the features `area`, `property-type`, `rooms-number` and `zip-code` (they are mandatory features).
@@ -101,9 +88,55 @@ The remaining features are optional and will use default values if none are prov
 ### Instructions
 *write instructions: Source code = app.py, etc.*
 
-### Routes
-GET
-POST
+**Show User**
+----
+  Returns json data about a single user.
+
+* **URL**
+
+  /users/:id
+
+* **Method:**
+
+  `GET` 
+  
+*  **URL Params**
+
+   **Required:**
+ 
+   `id=[integer]`
+
+* **Data Params**
+
+  None
+
+* **Success Response:**
+
+  * **Code:** 200 <br />
+    **Content:** `{ id : 12, name : "Michael Bloom" }`
+ 
+* **Error Response:**
+
+  * **Code:** 404 NOT FOUND <br />
+    **Content:** `{ error : "User doesn't exist" }`
+
+  OR
+
+  * **Code:** 401 UNAUTHORIZED <br />
+    **Content:** `{ error : "You are unauthorized to make this request." }`
+
+* **Sample Call:**
+
+  ```javascript
+    $.ajax({
+      url: "/users/1",
+      dataType: "json",
+      type : "GET",
+      success : function(r) {
+        console.log(r);
+      }
+    });
+  ```
 
 <a name="doc"></a>
 ## 2.5. Docker
