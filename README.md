@@ -85,7 +85,7 @@ The remaining features are optional and will use default values if none are prov
 ### Instructions
 **Show User**
 ----
-  Returns json data about a single user.
+Returns json data with predicted house price.
 
 * **URL**
 
@@ -93,32 +93,22 @@ The remaining features are optional and will use default values if none are prov
 
 * **Method:**
 
-  `GET` 
+  `GET` `POST`
   
-*  **URL Params**
-
-   **Required:**
- 
-   `id=[integer]`
-
 * **Data Params**
-
-  None
+   [Data](#input)
 
 * **Success Response:**
 
   * **Code:** 200 <br />
-    **Content:** `{ id : 12, name : "Michael Bloom" }`
+    **Content:** `{"prediction": House price ",
+                    "extra info": message }`
  
 * **Error Response:**
 
-  * **Code:** 404 NOT FOUND <br />
-    **Content:** `{ error : "User doesn't exist" }`
+  * **Code:** 406 Not Acceptable  <br />
+    **Content:** `{ error : "Sorry, you should send minimum 4 mandatory features. You can GET more info by GET method to /predict link" }`
 
-  OR
-
-  * **Code:** 401 UNAUTHORIZED <br />
-    **Content:** `{ error : "You are unauthorized to make this request." }`
 
 * **Sample Call:**
 
