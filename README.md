@@ -29,7 +29,7 @@ The model used was selected out of several models based on it's accuracy score. 
 The dataset used the sklearn's OneHotEncoder to convert categorial columns to a format which would be useful for a machin learning model.
 
 <a name="prep"></a>
-### 2.2. Preprocessing
+## 2.2. Preprocessing
 |__Problem__|__Data__|__Methods__|__Libs__|__Link__|
 |-|-|-|-|-|
 |Data preprocessing |json input| |`python`| |
@@ -41,7 +41,7 @@ The steps of preprocessing the data include:
 -Ensuring all features have a value in the correct data types.  
 
 <a name="pred"></a>
-### 2.3. Fitting the Data
+## 2.3. Fitting the Data
 |__Problem__|__Data__|__Methods__|__Libs__|__Link__|
 |-|-|-|-|-|
 |Prediction|json from API||`predict`, `pickle`| |
@@ -49,3 +49,6 @@ The steps of preprocessing the data include:
 The prediction file `prediction.py` takes input data from the user, sends it through the required preprocessing steps and passes this data to the model.
 The input data is in json format, and returns a json output, consisting of the house price prediction, and either an error message, or a success message.
 
+## 2.4. The API
+
+## 2.5. Docker
