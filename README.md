@@ -61,7 +61,7 @@ The preprocessing step returns a `json_input_cleaned` output.
 ## 2.3. Fitting the Data
 |__Problem__|__Data__|__Methods__|__Libs__|__Link__|
 |-|-|-|-|-|
-|Prediction|[JSON Input](#input)|Function|`python`, `pickle`| (https://github.com/orhannurkan/API-deployment/tree/main/predict)|
+|Prediction|JSON_input_cleaned|Function|`python`, `pickle`| (https://github.com/orhannurkan/API-deployment/tree/main/predict)|
 
 The prediction file `prediction.py` takes the `json_input_cleaned` and returns a [JSON output](#output), consisting of the house price prediction, and either an error message, or a success message.
 
@@ -70,7 +70,7 @@ The prediction file `prediction.py` takes the `json_input_cleaned` and returns a
 ## 2.4. The API
 |__Problem__|__Data__|__Methods__|__Libs__|__Link__|
 |-|-|-|-|-|
-|Deployment|[JSON output](#output)|GET, POST|`Flask`, `pickle`, `request`, `jsonify`, `make_response` |(https://github.com/orhannurkan/API-deployment/blob/main/app.py)|
+|Deployment|JSON_input|GET, POST|`Flask`, `pickle`, `request`, `jsonify`, `make_response` |(https://github.com/orhannurkan/API-deployment/blob/main/app.py)|
 
 The API has been developed with [Flask](https://flask.palletsprojects.com/en/1.1.x/), one of the most popular Python web application frameworks.
 The API gets [JSON_input](#input), which is [preprocessed](#prep) according to the model requirements. The prediction is then made based on a [machine learning model](#model) and returns a prediction of properties' price (output).
