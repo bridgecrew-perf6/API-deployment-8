@@ -7,6 +7,7 @@ from jsonschema.validators import Draft7Validator
 from preprocessing.json_schema_file import json_schema
 # from listler import subtype, postcodes
 from preprocessing.listler import subtype
+from preprocessing.gps import longitude_latitude
 
 # Json Example
 json_input_2 = {
@@ -136,11 +137,12 @@ def preprocess(json_input):
                 jid["col2_" + col2] = 0
 
         # Full-address
-        try:
+        try:  # 186,Kloosterstraat,Dilbeek,1702 = format
             if jid["full-address"] != "":
-                jid["latitude"] = 0  # call API to get GPS location then ???
-                # add latitude and latitude to json_input???
-                jid["longitude"] = 0
+                print("--------------------here it works----------------------")
+                longitude, latitude = longitude_latitude(jid["full-address"])
+                jid["latitude"] = latitude
+                jid["longitude"] = longitude
             else:
                 jid["latitude"] = 0
                 jid["longitude"] = 0
@@ -148,7 +150,8 @@ def preprocess(json_input):
             jid["latitude"] = 0
             jid["longitude"] = 0
             jid["full-address"] = ""
-
+        print("jid['latitude'], jid['longitude']",
+              jid["latitude"], jid["longitude"])
         jid.pop("property-subtype")
         jid.pop("building-state")
         jid.pop("facades-number")

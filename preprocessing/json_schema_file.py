@@ -31,7 +31,6 @@ json_schema = {
                 "garden": {"type": "boolean", "default": False},
                 "garden-area": {"type": "integer"},
                 "equipped-kitchen": {"type": "boolean", "default": False},
-                "full-address": {"type": "string"},
                 "swimmingpool": {"type": "boolean", "default": False},
                 "furnished": {"type": "boolean", "default": False},
                 "open-fire": {"type": "boolean", "default": False},
@@ -49,8 +48,14 @@ json_schema = {
                         "TO REBUILD",
                     ],
                 },
+                "full-address": {
+                    "type": "string",
+                    "description": "Template is 'HouseNumber,StreetName,Municipality,PostCode' and use , comma as seperator other formats are invalid for the address info",
+                    "example": "10,Cantersteen,Bruxelles,1000",
+                },
                 "property-subtype": {
                     "type": "string",
+                    "description": "This is an EXTRA FEATURE to increase accuracy of the prediction.",
                     "default": "APARTMENT",
                     "enum": ['APARTMENT', 'APARTMENT_BLOCK', 'BUNGALOW', 'COUNTRY_COTTAGE', 'DUPLEX', 'EXCEPTIONAL_PROPERTY',
                              'FARMHOUSE', 'FLAT_STUDIO', 'GROUND_FLOOR', 'HOUSE', 'KOT', 'LOFT', 'MANOR_HOUSE', 'MANSION',
