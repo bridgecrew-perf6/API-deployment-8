@@ -25,8 +25,6 @@ For quick reference, the repository is divided into the relevant sections, each 
 
 The features used in this prediction model are:</br> `'house_is'`,`'property_subtype'`, `'postcode'`, `'area'`,`'rooms_number'`, `'equipped_kitchen_has'`, `'garden'`, `'garden_area'`,`'terrace'`, `'terrace_area'`, `'furnished'`, `'swimming_pool_has'`,`'land_surface'`, `'building_state_agg'`, `'open_fire'`, `'longitude'`,`'latitude'`
 
-Dummy values: All categorical variables and boolean values are given dummy(numerical) values, to convert them into appropriate formats for the prediction model.
-
 The `model.py` file contains all the code used to train the model. The dataset is available as well in [assets](https://github.com/orhannurkan/API-deployment/tree/main/assets)
 
 The model is then [pickled](https://docs.python.org/3/library/pickle.html) to be used for prediction using the function `pickle.dump()`
@@ -38,11 +36,12 @@ The model is then [pickled](https://docs.python.org/3/library/pickle.html) to be
 |-|-|-|-|-|
 |Data preprocessing |[JSON input](#input)|Function |`python`, `JSON Schema Validator`|https://github.com/orhannurkan/API-deployment/tree/main/preprocessing |
 
-The input data is preprocessed according to the model requirements(formats, number of variables).
-The preprocessing function employs the use of [JSON Schema Validator](https://github.com/Julian/jsonschema) to define the variables and expected values. The 16 keys use to define **JSON_input** <a name="input"></a>, and the appropriate formats are: </br>
-mandatory data: {`"area":[int]`,`"property-type": ["APARTMENT" | "HOUSE" |  "OTHERS"]`,`"rooms-number":[int]`,`"zip-code":[int]`}
+The input data is preprocessed according to the model requirements(formats, number of variables). The preprocessing function employs the use of [JSON Schema Validator](https://github.com/Julian/jsonschema) to define the variables and expected values. 
 
-optional data: {`"land-area":[int]`,`"garden":[bool]`,`"garden-area":[int]`,`"equipped-kitchen": [bool]`,`"full-address":[str]`,`"swimmingpool":[bool]`,`"furnished":[bool]`,`"open-fire":[bool]`,`"terrace":[bool]`,`"terrace-area":[int]`,`"facades-number":[int]`,`"building-state":["NEW" | "GOOD" | "TO RENOVATE" | "JUST RENOVATED" | "TO REBUILD"]` }
+The expected **JSON_input** <a name="input"></a>, and the appropriate formats are: </br>
+**Mandatory data:** {`"area":[int]`,`"property-type": ["APARTMENT" | "HOUSE" |  "OTHERS"]`,`"rooms-number":[int]`,`"zip-code":[int]`}
+
+**Optional data:** {`"land-area":[int]`,`"garden":[bool]`,`"garden-area":[int]`,`"equipped-kitchen": [bool]`,`"full-address":[str]`,`"swimmingpool":[bool]`,`"furnished":[bool]`,`"open-fire":[bool]`,`"terrace":[bool]`,`"terrace-area":[int]`,`"facades-number":[int]`,`"building-state":["NEW" | "GOOD" | "TO RENOVATE" | "JUST RENOVATED" | "TO REBUILD"]` }
 
 
 - Each feature accepts a specific data type `int, bool and str` (for integer, boolean and string respectively).  
@@ -52,8 +51,8 @@ optional data: {`"land-area":[int]`,`"garden":[bool]`,`"garden-area":[int]`,`"eq
 **Important points to note:**  
 * All optional features have a default null value, which is coverted to False or 0, for the prediction model.  
 * The category names are converted to match the feature names of the training dataset to avoid conflicts.  
-* Location data; Using Google APIs, the feature `full-address` is parsed and `longitude` & `latitude` fatures extracted, which are very important for better prediction accuracy.  
-* Dummy values are created to convert catgorical and boolean values, and create corresponding features as expected by the prediction model.
+* Location data; Using Google APIs, the feature `full-address` is parsed and `longitude` & `latitude` fatures extracted, which are very important for better prediction accuracy. 
+* Dummy values are created for catgorical and boolean values, for the prediction model.
 
 The preprocessing step returns a `json_input_cleaned` output.
 
@@ -70,25 +69,22 @@ The prediction file `prediction.py` takes the `json_input_cleaned` and returns a
 ## 2.4. The API
 |__Problem__|__Data__|__Methods__|__Libs__|__Link__|
 |-|-|-|-|-|
-|Deployment|JSON_input|GET, POST|`Flask`, `pickle`, `request`, `jsonify`, `make_response` |(https://github.com/orhannurkan/API-deployment/blob/main/app.py)|
+|Deployment|JSON_input|GET, POST|`Flask`, `request`, `jsonify`|(https://github.com/orhannurkan/API-deployment/blob/main/app.py)|
 
 The API has been developed with [Flask](https://flask.palletsprojects.com/en/1.1.x/), one of the most popular Python web application frameworks.
-The API gets [JSON_input](#input), which is [preprocessed](#prep) according to the model requirements. The prediction is then made based on a [machine learning model](#model) and returns a prediction of properties' price (output).
+The API gets [JSON_input](#input), which is [preprocessed](#prep) according to the model requirements, and returns a property price prediction based on this [model](#model).
 
 The 16 keys to be used to send user data in the appropriate format are outlined [here](#input).  
-To get the prediction, one must at minimum enter a value for the features `area`, `property-type`, `rooms-number` and `zip-code` (they are mandatory features).
+To get the prediction, one must at minimum enter a value for the features `area`, `property-type`, `rooms-number` and `zip-code`.
 The remaining features are optional and will use default values if none are provided.
 
-### Instructions
+### Outline
 
-Show User
-----
-  Returns json data with predicted house price.
-
+API Returns json data with predicted house price.
 
 * **Method:**
 
-  `GET` `POST`
+  `GET`, `POST`
   
 * **Data Params**
   
