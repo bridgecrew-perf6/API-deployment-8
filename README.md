@@ -13,7 +13,7 @@ This project was a collaborative effort between four members of the *Bouwman2* p
 For quick reference, the repository is divided into the relevant sections, each with it's own resources and outline.  
 2.1. [The model](#model)  
 2.2. [Preprocessing](#prep)  
-2.3. [Fitting the Data](#pred)  
+2.3. [Prediction](#pred)  
 2.4. [The API](#api)  
 2.5. [Docker](#doc)  
 
@@ -57,7 +57,7 @@ The expected **JSON_input** <a name="input"></a>, and the appropriate formats ar
 The preprocessing step returns a `json_input_cleaned` output.
 
 <a name="pred"></a>
-## 2.3. Fitting the Data
+## 2.3. Prediction
 |__Problem__|__Data__|__Methods__|__Libs__|__Link__|
 |-|-|-|-|-|
 |Prediction|JSON_input_cleaned|Function|`python`, `pickle`| (https://github.com/orhannurkan/API-deployment/tree/main/predict)|
