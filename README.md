@@ -39,7 +39,7 @@ The model is then [pickled](https://docs.python.org/3/library/pickle.html) to be
 |Data preprocessing |[JSON input](#input)|Function |`python`, `JSON Schema Validator`|https://github.com/orhannurkan/API-deployment/tree/main/preprocessing |
 
 The input data is preprocessed according to the model requirements(formats, number of variables).
-The preprocessing function employs the use of [JSON Schema Validator](https://github.com/Julian/jsonschema) to define the variables and expected values. The 16 keys use to define [JSON_input]<a name="input"></a>, and the appropriate formats are: </br>
+The preprocessing function employs the use of [JSON Schema Validator](https://github.com/Julian/jsonschema) to define the variables and expected values. The 16 keys use to define **JSON_input** <a name="input"></a>, and the appropriate formats are: </br>
 mandatory data: {`"area":[int]`,`"property-type": ["APARTMENT" | "HOUSE" |  "OTHERS"]`,`"rooms-number":[int]`,`"zip-code":[int]`}
 
 optional data: {`"land-area":[int]`,`"garden":[bool]`,`"garden-area":[int]`,`"equipped-kitchen": [bool]`,`"full-address":[str]`,`"swimmingpool":[bool]`,`"furnished":[bool]`,`"open-fire":[bool]`,`"terrace":[bool]`,`"terrace-area":[int]`,`"facades-number":[int]`,`"building-state":["NEW" | "GOOD" | "TO RENOVATE" | "JUST RENOVATED" | "TO REBUILD"]` }
