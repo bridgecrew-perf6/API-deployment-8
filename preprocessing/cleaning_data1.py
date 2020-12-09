@@ -1,5 +1,5 @@
 from predict.prediction import predict
-from preprocessing.listsler import subtype, postcodes
+from preprocessing.listler import subtype, postcodes
 
 
 def preprocess(json_input):

@@ -36,15 +36,19 @@ fkendi = ['postcode', 'area', 'rooms_number', 'equipped_kitchen_has', 'garden',
 def predict(model, json_input):    # print(json_input)
     #     cleaned_input = []
     # json that filled by default 0, =>np.array DataFrame
-    print("---------1 - cleaned_input--------",
-          json_input, len(json_input["data"].keys()))
-#     for i in f:
-#         cleaned_input.append(json_input["data"][i])
+    # print("---------1 - cleaned_input--------",
+    #   json_input, len(json_input["data"].keys()))
+    #     for i in f:
+    #         cleaned_input.append(json_input["data"][i])
     # print("---------2 - cleaned_input--------",
     #       cleaned_input, len(cleaned_input))
-    print("demo++++++++++", json_input["data"])
-    demo = pd.json_normalize(json_input["data"])
-    print("##############################################", demo.columns)
+    # print("demo++++++++++", json_input["data"])
+    demo1 = pd.json_normalize(json_input["data"])
+    # print("##############################################", demo1.columns)
+    demo = {}  # this line gets only feautures we need from input json
+    for column in f:
+        demo[column] = demo1[column]
+    demo = pd.json_normalize(demo)
     demo['rooms_number'] = demo['rooms-number']
     demo['postcode'] = demo['zip-code']
     demo['land_surface'] = demo['land-area']
@@ -58,10 +62,10 @@ def predict(model, json_input):    # print(json_input)
                       'terrace-area', 'equipped-kitchen', 'open-fire', 'swimmingpool'], axis=1)
     #'rooms-number', 'zip-code','land-area','garden-area','terrace-area','equipped-kitchen','open-fire','swimmingpool',
     # 'rooms_number','postcode', 'land_surface','garden_area','terrace_area','equipped_kitchen_has', 'open_fire','swimming_pool_has',
-    print("-------------once------------------", demo.columns)
+    # print("-------------once------------------", demo.columns)
     demo = demo[f2]
 #     demo = pd.DataFrame(json_input["data"])
-    print("-------------sonra++++++++++", demo.columns)
+    # print("-------------sonra++++++++++", demo.columns)
 
 #     cleaned_input = np.array(cleaned_input).reshape(-1, 1)
     # print("---------3 - cleaned_input--------",
@@ -73,7 +77,7 @@ def predict(model, json_input):    # print(json_input)
 #         c.append(json_input["data"][k])
     cleaned_input = demo
     a = {"prediction": model.predict(cleaned_input)}
-    print(a)
+    # print(a)
 #     np.array([1000, 100, 3, 1, 1, 5, 1, 5, 1, 0, 0, 0, 0, 0, 1, 0, 0,
 #                               0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1]).reshape(1, -1)
 

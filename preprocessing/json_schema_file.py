@@ -1,6 +1,6 @@
 # Definition of Json schema
 
-from listler import postcodes
+from preprocessing.listler import postcodes
 
 global json_schema
 json_schema = {
@@ -49,6 +49,12 @@ json_schema = {
                         "TO REBUILD",
                     ],
                 },
+                "property-subtype": {
+                    "type": "string",
+                    "default": "APARTMENT",
+                    "enum": ['APARTMENT', 'APARTMENT_BLOCK', 'BUNGALOW', 'COUNTRY_COTTAGE', 'DUPLEX', 'EXCEPTIONAL_PROPERTY',
+                             'FARMHOUSE', 'FLAT_STUDIO', 'GROUND_FLOOR', 'HOUSE', 'KOT', 'LOFT', 'MANOR_HOUSE', 'MANSION',
+                             'MIXED_USE_BUILDING', 'OTHER_PROPERTY', 'PENTHOUSE', 'SERVICE_FLAT', 'TOWN_HOUSE', 'TRIPLEX', 'VILLA', ]},
             },
         },
     },

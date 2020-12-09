@@ -1,7 +1,9 @@
+import json
 from predict.prediction import predict
 from predict.messages import explain_expectations, api_is_alive
 from preprocessing.cleaning_data import preprocess
 from flask import Flask, request, jsonify, make_response
+from preprocessing.json_schema_file import json_schema
 import pickle
 import os
 model = pickle.load(open('./model/model.pkl', 'rb'))
@@ -17,7 +19,7 @@ def alive():
 def predictive():  # The parsed JSON data (application/json, see is_json()).
     if request.method == 'POST':
         json_input = request.get_json(force=True)
-        if len(json_input["data"].keys()) > 4:
+        if len(json_input["data"].keys()) > 3:
             json_input = request.get_json(force=True)
             error, message, json_input_cleaned = preprocess(json_input)
             if error:
@@ -29,7 +31,8 @@ def predictive():  # The parsed JSON data (application/json, see is_json()).
         else:
             return make_response(jsonify({"message": "Sorry, you should send minimum 4 mandatory features. You can GET more info by GET method to /predict link"}), 406)
     else:
-        return explain_expectations
+        json_schema_user = json.dumps(json_schema)
+        return json_schema_user
 
 
 if __name__ == '__main__':
