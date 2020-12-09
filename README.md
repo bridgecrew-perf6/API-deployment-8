@@ -23,7 +23,7 @@ For quick reference, the repository is divided into the relevant sections, each 
 |-|-|-|-|-|
 |Machine Learning model|Belgium Real Estate Dataset |Regression|`pandas`, `numpy`, `sklearn`, `pickle`|https://github.com/orhannurkan/API-deployment/blob/main/app/model/model.py|
 
-The features used in this prediction model are:</br> `'house_is','property_subtype', 'price', 'postcode', 'area','rooms_number', 'equipped_kitchen_has', 'garden', 'garden_area','terrace', 'terrace_area', 'furnished', 'swimming_pool_has','land_surface', 'building_state_agg', 'open_fire', 'longitude','latitude'`
+The features used in this prediction model are:</br> `'house_is'`,`'property_subtype'`, `'postcode'`, `'area'`,`'rooms_number'`, `'equipped_kitchen_has'`, `'garden'`, `'garden_area'`,`'terrace'`, `'terrace_area'`, `'furnished'`, `'swimming_pool_has'`,`'land_surface'`, `'building_state_agg'`, `'open_fire'`, `'longitude'`,`'latitude'`
 
 Dummy values: All categorical variables and boolean values are given dummy(numerical) values, to convert them into appropriate formats for the prediction model.
 
@@ -36,10 +36,10 @@ The model is then [pickled](https://docs.python.org/3/library/pickle.html) to be
 ## 2.2. Preprocessing
 |__Problem__|__Data__|__Methods__|__Libs__|__Link__|
 |-|-|-|-|-|
-|Data preprocessing |[JSON input](#input)| |`python`, `JSON Schema Validator`|https://github.com/orhannurkan/API-deployment/tree/main/preprocessing |
+|Data preprocessing |[JSON input](#input)|Function |`python`, `JSON Schema Validator`|https://github.com/orhannurkan/API-deployment/tree/main/preprocessing |
 
 The input data is preprocessed according to the model requirements(formats, number of variables).
-The preprocessing function employs the use of [JSON Schema Validator](https://github.com/Julian/jsonschema) to define the variables and expected values. The 16 keys use to define [JSON_input](#input), and the appropriate formats are: </br>
+The preprocessing function employs the use of [JSON Schema Validator](https://github.com/Julian/jsonschema) to define the variables and expected values. The 16 keys use to define [JSON_input]<a name="input"></a>, and the appropriate formats are: </br>
 mandatory data: {`"area":[int]`,`"property-type": ["APARTMENT" | "HOUSE" |  "OTHERS"]`,`"rooms-number":[int]`,`"zip-code":[int]`}
 
 optional data: {`"land-area":[int]`,`"garden":[bool]`,`"garden-area":[int]`,`"equipped-kitchen": [bool]`,`"full-address":[str]`,`"swimmingpool":[bool]`,`"furnished":[bool]`,`"open-fire":[bool]`,`"terrace":[bool]`,`"terrace-area":[int]`,`"facades-number":[int]`,`"building-state":["NEW" | "GOOD" | "TO RENOVATE" | "JUST RENOVATED" | "TO REBUILD"]` }
@@ -61,7 +61,7 @@ The preprocessing step returns a `json_input_cleaned` output.
 ## 2.3. Fitting the Data
 |__Problem__|__Data__|__Methods__|__Libs__|__Link__|
 |-|-|-|-|-|
-|Prediction|json from API|Function|`python`, `pickle`| (https://github.com/orhannurkan/API-deployment/tree/main/predict)|
+|Prediction|[JSON Input](#input)|Function|`python`, `pickle`| (https://github.com/orhannurkan/API-deployment/tree/main/predict)|
 
 The prediction file `prediction.py` takes the `json_input_cleaned` and returns a [JSON output](#output), consisting of the house price prediction, and either an error message, or a success message.
 
@@ -81,7 +81,9 @@ The remaining features are optional and will use default values if none are prov
 
 ### Instructions
 
-  API returns json data with predicted house price.
+Show User
+----
+  Returns json data with predicted house price.
 
 
 * **Method:**
@@ -102,7 +104,6 @@ The remaining features are optional and will use default values if none are prov
 
   * **Code:** 406 Not Acceptable  <br />
     **Content:** `{ error : "Sorry, you should send minimum 4 mandatory features. You can GET more info by GET method to /predict link" }`
-
 
 
 
