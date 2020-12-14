@@ -50,7 +50,7 @@ json_schema = {
                 },
                 "full-address": {
                     "type": "string",
-                    "description": "Template is 'HouseNumber,StreetName,Municipality,PostCode' and use , comma as seperator other formats are invalid for the address info",
+                    "description": " - Template is 'HouseNumber,StreetName,Municipality,PostCode' and use , comma as seperator other formats are invalid for the address info",
                     "example": "10,Cantersteen,Bruxelles,1000",
                 },
                 "property-subtype": {

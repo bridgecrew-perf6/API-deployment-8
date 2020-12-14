@@ -1,16 +1,12 @@
 # Preprocessing with json schema
-
 # Import libraries for JSON input management and validation
 from jsonschema.validators import Draft7Validator
-
-# Import modules
 from preprocessing.json_schema_file import json_schema
-# from listler import subtype, postcodes
-from preprocessing.listler import subtype
 from preprocessing.gps import longitude_latitude
+import pandas as pd
+import sqlite3
 
-# Json Example
-json_input_2 = {
+json_input_2 = {  # Json Example
     "data": {
         "area": 5,
         "property-type": "APARTMENT",
@@ -110,8 +106,14 @@ def preprocess(json_input):
             jid_pt = jid["property-subtype"]
         except:
             jid_pt = jid["property-subtype"] = 0
-
-        for col1 in subtype:
+        conn = sqlite3.connect("db/mydatabase.db")
+        cursor = conn.cursor()
+        cursor.execute("""select * from property_subtype""")
+        df = pd.DataFrame(cursor.fetchall())
+        conn.commit()
+        conn.close()
+        for col1 in df[0]:
+            # for col1 in subtype:
             try:
                 if jid_pt == col1:
                     jid["col1_" + col1] = 1
@@ -126,8 +128,16 @@ def preprocess(json_input):
             jid_bs = jid["building-state"]
         except:
             jid_bs = jid["building-state"] = 0
-
-        for col2 in ["AS_NEW", "GOOD", "JUST_RENOVATED", "TO_RENOVATE", "TO_RESTORE"]:
+        conn = sqlite3.connect("db/mydatabase.db")
+        cursor = conn.cursor()
+        cursor.execute("""select * from building_state_agg""")
+        df = pd.DataFrame(cursor.fetchall())
+        conn.commit()
+        conn.close()
+        # if int(ids[i]) not in [int(x) for x in df[0]]:
+        for col2 in df[0]:
+            # for col2 in ["AS_NEW", "GOOD", "JUST_RENOVATED", "TO_RENOVATE", "TO_RESTORE"]:
+            # print("col2 in df[0]", col2)
             try:
                 if jid_bs == col2:
                     jid["col2_" + col2] = 1
@@ -139,7 +149,6 @@ def preprocess(json_input):
         # Full-address
         try:  # 186,Kloosterstraat,Dilbeek,1702 = format
             if jid["full-address"] != "":
-                print("--------------------here it works----------------------")
                 longitude, latitude = longitude_latitude(jid["full-address"])
                 jid["latitude"] = latitude
                 jid["longitude"] = longitude
@@ -150,18 +159,18 @@ def preprocess(json_input):
             jid["latitude"] = 0
             jid["longitude"] = 0
             jid["full-address"] = ""
-        print("jid['latitude'], jid['longitude']",
-              jid["latitude"], jid["longitude"])
+        # print("jid['latitude'], jid['longitude']",
+            #   jid["latitude"], jid["longitude"])
         jid.pop("property-subtype")
         jid.pop("building-state")
         jid.pop("facades-number")
         # jid.pop("property-type")
         jid.pop("full-address")
-
+    # print("###################################### JSON",
+    #       len(json_input["data"].keys()))
     return error, message, json_input
 
 
 if __name__ == "__main__":
     error, message, json_input_cleaned = preprocess(json_input_2)
     print({"error": error, "message": message}, json_input_cleaned)
-    print(len(json_input_cleaned["data"].keys()))
