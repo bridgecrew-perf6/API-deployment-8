@@ -26,4 +26,4 @@ def predict(model, json_input):    # print(json_input)
                       'terrace-area', 'equipped-kitchen', 'open-fire', 'swimmingpool'], axis=1)
     demo = demo[df[0].array]
     cleaned_input = demo
-    return {"prediction": model.predict(cleaned_input)}
+    return {"prediction": int(model.predict(cleaned_input)[0])}

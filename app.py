@@ -129,7 +129,7 @@ def predictive():  # The parsed JSON data (application/json, see is_json()).
             error, message, json_input_cleaned = preprocess(json_input)
             if error:
                 response = {"error": f"{message}"}
-            else:
+            else:                
                 response = {"prediction": f"{predict(model,json_input_cleaned)}",
                             "extra info": message}
             return make_response(jsonify(response), 200)
