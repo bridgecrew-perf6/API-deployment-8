@@ -81,6 +81,8 @@ The remaining features are optional and will use default values if none are prov
 ### Outline
 
 API Returns json data with predicted house price.
+* **Url:**
+    http://cnos6.herokuapp.com/
 
 * **Method:**
 
