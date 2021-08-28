@@ -10,7 +10,7 @@ The API is to be used by the web developers to create a website around. This rep
 This project was a collaborative effort between four members of the *Bouwman2* promotion at [BeCode](https://github.com/becodeorg), Brussels, in December 2020. The team comprised of [Orhan Nurkan](https://github.com/orhannurkan), [Christophe Giets](https://github.com/gietsc), [Sara Silvente](https://github.com/silventesa), and [Naomi Thiru](https://github.com/naomithiru)
 
 # 2. Contents
-For quick reference, the repository is divided into the relevant sections, each with it's own resources and outline.  
+For quick reference, the repository is divided into the relevant sections, each with it's own resources.  
 2.1. [The model](#model)  
 2.2. [Preprocessing](#prep)  
 2.3. [Prediction](#pred)  
